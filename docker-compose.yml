@@ -1,9 +1,30 @@
+version: "3.8"
+
+services:
   cheapp-backend:
+    # 构建镜像：以当前目录里的 Dockerfile 为准
     build:
-      context: ./cheaperplan_backend
+      context: .
+      dockerfile: Dockerfile
     container_name: cheapp-backend
+
+    # 仅向同一 Docker 网络内的容器暴露 8002 端口（给 Nginx 用）
     expose:
       - "8002"
+
+    # 如需临时在宿主机直接访问，可取消下面两行的注释
+    # ports:
+    #   - "8002:8002"
+
+    # 如果有数据库 URL、API key 等，请把它们写进 .env 文件
+    # 并取消下一行注释
+    # env_file:
+    #   - .env
+
     restart: always
     networks:
-      - app-network
+      - app-network   # 必须与前端 Nginx 所在的网络同名
+
+networks:
+  app-network:
+    external: true    # 复用你已经创建好的外部网络
