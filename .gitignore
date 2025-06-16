@@ -1,0 +1,43 @@
+# 虚拟环境（如果不是在项目外部管理）
+venv/
+.env
+.env.*
+
+# Python 缓存文件
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.pyo
+
+
+# VSCode 配置
+.vscode/
+
+# 操作系统垃圾文件
+.DS_Store
+Thumbs.db
+
+# 测试和覆盖率
+htmlcov/
+coverage.xml
+.tox/
+.nox/
+.cache/
+.pytest_cache/
+
+# 数据库文件（如使用本地 SQLite）
+*.db
+*.sqlite3
+
+# 日志和输出
+*.log
+logs/
+
+# Mypy / Pylint / Ruff 等分析缓存
+.mypy_cache/
+.pytype/
+ruff_cache/
+
+# Uvicorn reload 临时文件
+reload.*
