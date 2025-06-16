@@ -1,0 +1,9 @@
+  cheapp-backend:
+    build:
+      context: ./cheaperplan_backend
+    container_name: cheapp-backend
+    expose:
+      - "8002"
+    restart: always
+    networks:
+      - app-network
