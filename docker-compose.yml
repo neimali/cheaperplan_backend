@@ -12,6 +12,9 @@ services:
     ports:
       - "8002:8002"   # 若不需要宿主机调试，可删掉这两行
 
+    env_file:
+      - .env
+
     restart: always
     networks:
       - app-network

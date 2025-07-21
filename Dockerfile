@@ -8,10 +8,11 @@ RUN apt-get update && \
 RUN pip install --no-cache-dir poetry
 WORKDIR /app
 
-COPY pyproject.toml poetry.lock* ./
+COPY pyproject.toml ./
 
-RUN poetry config virtualenvs.create false \
-    && poetry install --no-interaction --no-ansi --no-root
+RUN poetry config virtualenvs.create false && \
+    poetry lock && \
+    poetry install --no-interaction --no-ansi --no-root
 
 COPY . .
 
