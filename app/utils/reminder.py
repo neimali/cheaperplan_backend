@@ -23,7 +23,7 @@ def delete_expo_token(token: str):
 
 
 
-async def send_push(tokens: list[str], title="Cheaper Plan available!", body="GoGoGo"):
+async def send_push(tokens: list[str], title="New plans to help you save!", body="GoGoGo"):
     """
     批量推送同一条消息，返回有效 token 列表 & ticket IDs 列表
     """
