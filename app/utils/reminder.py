@@ -83,15 +83,23 @@ async def fetch_receipts(receipt_ids: list[str]):
 
 async def push_same_message():
     records = get_all_better_plans()
-    tokens = get_exponentPushTokens(records)
-    if not tokens:
-        print("no valid tokens")
+    if not records:
+        print("no records found")
         return
 
-    CHUNK = 100
-    for i in range(0, len(tokens), CHUNK):
-        batch = tokens[i:i+CHUNK]
-        receipt_ids = await send_push(batch)
-        await asyncio.sleep(10)           # 官方建议 5–30 秒
+    # Group records by user to send personalized messages
+    for record in records:
+        token = record.get("exponent_push_token")
+        if not token:
+            continue
+        
+        new_plans_count = record["new_plans_count"]
+        max_savings = record["max_savings"]
+        
+        # Create personalized message body
+        body = f"We've found {new_plans_count} new plans for you! The cheapest one could save you ${max_savings}/month — that's about ${max_savings * 12} a year."
+        
+        receipt_ids = await send_push([token], body=body)
+        await asyncio.sleep(1)  # Small delay between individual pushes
         await fetch_receipts(receipt_ids)
 
